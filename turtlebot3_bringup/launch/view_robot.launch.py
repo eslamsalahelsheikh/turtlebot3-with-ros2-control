@@ -34,7 +34,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_file",
-            default_value="turtlebot3_waffle.urdf",
+            default_value="turtlebot3.urdf.xacro",
             description="URDF/XACRO description file with the robot.",
         )
     )
