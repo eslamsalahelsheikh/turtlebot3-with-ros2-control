@@ -5,7 +5,7 @@
   <version>0.0.0</version>
   <description>Package with launch files and run-time configurations for  `ros2_control` examples.</description>
 
-  <maintainer email="denis@stogl.de">Denis Štogl</maintainer>
+  <maintainer email="EslamSalahZaki.Elshiekh@de.bosch.com">Eslam Elshiekh</maintainer>
 
   <license>Apache-2.0</license>
 

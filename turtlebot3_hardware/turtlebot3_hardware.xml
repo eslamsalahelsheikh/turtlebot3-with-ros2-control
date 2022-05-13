@@ -1,0 +1,11 @@
+<library path="turtlebot3_hardware">
+
+  <class name="turtlebot3_hardware/TurtleBot3Hardware"
+         type="turtlebot3_hardware::TurtleBot3Hardware"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      This demo hardware is for driving turtlebot3 with differential-drive controller and getting imu sensor readings.
+    </description>
+  </class>
+
+</library>
