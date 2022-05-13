@@ -144,11 +144,11 @@
 
     <joint name="imu_joint" type="fixed">
       <parent link="base_link"/>
-      <child link="imu_link"/>
+      <child link="imu_sensor"/>
       <origin xyz="0.0 0 0.068" rpy="0 0 0"/>
     </joint>
 
-    <link name="imu_link"/>
+    <link name="imu_sensor"/>
 
     <joint name="scan_joint" type="fixed">
       <parent link="base_link"/>

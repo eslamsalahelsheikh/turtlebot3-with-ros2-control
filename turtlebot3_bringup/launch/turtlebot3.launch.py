@@ -82,6 +82,12 @@ def generate_launch_description():
         executable="spawner",
         arguments=["turtlebot3_base_controller", "-c", "/controller_manager"],
     )
+    # add the spawner node for the imu_broadcaster
+    imu_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["imu_sensor_broadcaster", "--controller-manager", "/controller_manager"],
+    )
 
     # Delay rviz start after `joint_state_broadcaster`
     delay_rviz_after_joint_state_broadcaster_spawner = RegisterEventHandler(
@@ -98,13 +104,19 @@ def generate_launch_description():
             on_exit=[robot_controller_spawner],
         )
     )
-
+    delay_imu_after_joint_controller = RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=robot_controller_spawner,
+                on_exit=[imu_broadcaster_spawner],
+            )
+        )
     nodes = [
         control_node,
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
         delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
+        delay_imu_after_joint_controller,
     ]
 
     return LaunchDescription(nodes)
