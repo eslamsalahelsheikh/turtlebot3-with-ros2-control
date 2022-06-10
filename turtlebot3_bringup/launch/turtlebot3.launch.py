@@ -49,6 +49,7 @@ def generate_launch_description():
         package="controller_manager",
         executable="ros2_control_node",
         parameters=[robot_description, robot_controllers],
+        remappings=[('/turtlebot3_base_controller/cmd_vel_unstamped', '/cmd_vel')],
         output={
             "stdout": "screen",
             "stderr": "screen",
@@ -59,9 +60,6 @@ def generate_launch_description():
         executable="robot_state_publisher",
         output="both",
         parameters=[robot_description],
-        remappings=[
-            ("/diff_drive_controller/cmd_vel_unstamped", "/cmd_vel"),
-        ],
     )
     rviz_node = Node(
         package="rviz2",
