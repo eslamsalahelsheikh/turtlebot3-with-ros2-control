@@ -138,7 +138,7 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        imu_link:
+        imu_sensor:
           Alpha: 1
           Show Axes: false
           Show Trail: false

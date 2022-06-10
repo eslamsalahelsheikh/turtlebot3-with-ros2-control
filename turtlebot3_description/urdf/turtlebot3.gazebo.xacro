@@ -4,6 +4,15 @@
   <xacro:arg name="camera_visual" default="false"/>
   <xacro:arg name="imu_visual"    default="false"/>
 
+  <gazebo>
+    <!-- Joint state publisher -->
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+      <robotParam>robot_description</robotParam>
+      <robot_sim_type>gazebo_ros2_control/GazeboSystem</robot_sim_type>
+      <parameters>$(find turtlebot3_bringup)/config/turtlebot3_controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+
   <gazebo reference="base_link">
     <material>Gazebo/DarkGrey</material>
   </gazebo>
@@ -50,8 +59,8 @@
     <material>Gazebo/FlatBlack</material>
   </gazebo>
 
-  <gazebo reference="imu_link">
-    <sensor type="imu" name="imu">
+  <gazebo reference="imu_sensor">
+    <sensor type="imu" name="imu_sensor">
       <always_on>true</always_on>
       <visualize>$(arg imu_visual)</visualize>
     </sensor>
@@ -59,7 +68,7 @@
   </gazebo>
 
   <gazebo>
-    <plugin name="turtlebot3_waffle_controller" filename="libgazebo_ros_diff_drive.so">
+    <plugin name="turtlebot3_base_controller" filename="libgazebo_ros_diff_drive.so">
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
@@ -71,21 +80,27 @@
       <publishWheelJointState>true</publishWheelJointState>
       <legacyMode>false</legacyMode>
       <updateRate>30</updateRate>
-      <leftJoint>wheel_left_joint</leftJoint>
-      <rightJoint>wheel_right_joint</rightJoint>
-      <wheelSeparation>0.287</wheelSeparation>
-      <wheelDiameter>0.066</wheelDiameter>
-      <wheelAcceleration>1</wheelAcceleration>
-      <wheelTorque>10</wheelTorque>
+      <left_joint>wheel_left_joint</left_joint>
+      <right_joint>wheel_right_joint</right_joint>
+      <wheel_separation>0.287</wheel_separation>
+      <wheel_diameter>0.066</wheel_diameter>
+      <max_wheel_acceleration>1</max_wheel_acceleration>
+      <max_wheel_torque>10</max_wheel_torque>
       <rosDebugLevel>na</rosDebugLevel>
+            <!-- output -->
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>chassis</robot_base_frame>
     </plugin>
   </gazebo>
 
   <gazebo>
     <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
       <alwaysOn>true</alwaysOn>
-      <bodyName>imu_link</bodyName>
-      <frameName>imu_link</frameName>
+      <bodyName>imu_sensor</bodyName>
+      <frameName>imu_sensor</frameName>
       <topicName>imu</topicName>
       <serviceName>imu_service</serviceName>
       <gaussianNoise>0.0</gaussianNoise>
