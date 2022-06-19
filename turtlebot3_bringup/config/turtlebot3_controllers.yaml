@@ -1,6 +1,7 @@
 controller_manager:
   ros__parameters:
     update_rate: 10  # Hz
+    use_sim_time: true  # only true if using Gazebo
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
